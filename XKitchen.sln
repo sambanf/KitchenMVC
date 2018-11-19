@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.MVC", "XKitchen.MVC\XKitchen.MVC.csproj", "{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.Tests", "XKitchen.Tests\XKitchen.Tests.csproj", "{8F91BE73-22A8-4E70-8B7D-C8B976A89E52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F91BE73-22A8-4E70-8B7D-C8B976A89E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F91BE73-22A8-4E70-8B7D-C8B976A89E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F91BE73-22A8-4E70-8B7D-C8B976A89E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F91BE73-22A8-4E70-8B7D-C8B976A89E52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46EE8ED6-EA97-4FE9-B1E3-7EF1E5968FEC}
+	EndGlobalSection
+EndGlobal
