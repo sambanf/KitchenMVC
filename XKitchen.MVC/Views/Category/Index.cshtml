@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Category";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" id="btn-new" class="btn-success btn-sm">Create New</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12" id="table-list">
+                <h3>Loading...</h3>
+                <h5>List is here.. :3</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal *@
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetList();
+        });
+
+
+        $('#btn-new').click(function () {
+            $.ajax({
+                url: '@Url.Action("Create","Category")',
+                type: 'get',
+                success: function (result) {
+                    $(".modal-title").html("Create new Category")
+                    $(".modal-body").html(result);
+                    $(".modal").modal("show")
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+
+        });
+
+        function GetList(){
+            $.ajax({
+                url: '@Url.Action("List","Category")',
+                type: 'get',
+                success: function (result) {
+                    $("#table-list").html(result);
+                },
+                error: function (err) {
+                    $("#table-list").html(err);
+                }
+            });
+        }
+    </script>
+}

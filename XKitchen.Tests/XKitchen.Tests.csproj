@@ -114,6 +114,14 @@
       <Project>{BC5BAAA4-C517-4EDD-911C-A92DBD009EF9}</Project>
       <Name>XKitchen.MVC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XKitchen.Repository\XKitchen.Repository.csproj">
+      <Project>{381AAA25-761C-4B86-A239-A1DE3AC2A909}</Project>
+      <Name>XKitchen.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XKitchen.ViewModel\XKitchen.ViewModel.csproj">
+      <Project>{6C24E876-7F52-4292-806A-22970ACD5892}</Project>
+      <Name>XKitchen.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

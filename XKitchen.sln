@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.Tests", "XKitchen.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.DataModel", "XKitchen.DataModel\XKitchen.DataModel.csproj", "{8B0968EC-32C4-4776-A0EE-3F44131D359F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.ViewModel", "XKitchen.ViewModel\XKitchen.ViewModel.csproj", "{6C24E876-7F52-4292-806A-22970ACD5892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKitchen.Repository", "XKitchen.Repository\XKitchen.Repository.csproj", "{381AAA25-761C-4B86-A239-A1DE3AC2A909}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{8B0968EC-32C4-4776-A0EE-3F44131D359F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B0968EC-32C4-4776-A0EE-3F44131D359F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B0968EC-32C4-4776-A0EE-3F44131D359F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C24E876-7F52-4292-806A-22970ACD5892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C24E876-7F52-4292-806A-22970ACD5892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C24E876-7F52-4292-806A-22970ACD5892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C24E876-7F52-4292-806A-22970ACD5892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381AAA25-761C-4B86-A239-A1DE3AC2A909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381AAA25-761C-4B86-A239-A1DE3AC2A909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381AAA25-761C-4B86-A239-A1DE3AC2A909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381AAA25-761C-4B86-A239-A1DE3AC2A909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

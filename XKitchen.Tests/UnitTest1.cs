@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XKitchen.DataModel;
+using XKitchen.Repository;
+using XKitchen.ViewModel;
 
 namespace XKitchen.Tests
 {
@@ -55,6 +58,17 @@ namespace XKitchen.Tests
                 Trace.WriteLine("--- Ending Table Testing ");
             }
 
+        }
+        [TestMethod]
+        public void TestGetCategory()
+        {
+            Trace.WriteLine("--- Start Get All Category Testing ---");
+            List<CategoryViewModel> categories = CategoryRepo.All();
+            foreach (var category in categories)
+            {
+                Trace.WriteLine(category.Name);
+            }
+            Trace.WriteLine("--- End Get All Category Testing ---");
         }
     }
 }

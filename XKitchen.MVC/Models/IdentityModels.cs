@@ -21,7 +21,7 @@ namespace XKitchen.MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("KitchenContext", throwIfV1Schema: false)
         {
         }
 
