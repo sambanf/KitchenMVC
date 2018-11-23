@@ -17,9 +17,10 @@ namespace XKitchen.DataModel
         [Column(TypeName = "varchar"), MaxLength(10), Required]
         public string initial { get; set; }
 
-        public int Seat { get; set; }
+        [Column(TypeName = "int"), Required]
+        public int seat { get; set; }
 
-        [Column(TypeName = "varchar"), MaxLength(100), Required]
+        [Column(TypeName = "varchar"), MaxLength(50), Required]
         public string Desc { get; set; }
 
         public bool Active { get; set; }

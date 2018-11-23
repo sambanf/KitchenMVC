@@ -1,0 +1,35 @@
+﻿@model IEnumerable<XKitchen.ViewModel.ProductViewModel>
+
+<table class="table">
+    <tr>
+        <th>Select</th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.initial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <button type="button" class="btn btn-warning btn-sm" data-id="@item.id" data-dismiss="modal">Select</button>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.initial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+    </tr>
+}
+
+</table>

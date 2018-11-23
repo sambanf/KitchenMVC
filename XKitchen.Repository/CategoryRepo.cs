@@ -15,7 +15,7 @@ namespace XKitchen.Repository
             List<CategoryViewModel> result = new List<CategoryViewModel>();
             using (var db = new KitchenContext())
             {
-                result = (from c in db.Mst_Category
+                result = (from c in db.Categories
                           select new CategoryViewModel
                           {
                               id = c.id,
@@ -23,6 +23,36 @@ namespace XKitchen.Repository
                               Name = c.Name,
                               Active = c.Active
                           }).ToList();
+            }
+            return result;
+        }
+
+        public static ResponResultViewModel Delete(int id)
+        {
+            ResponResultViewModel result = new ResponResultViewModel();
+            try
+            {
+                using (var db = new KitchenContext())
+                {
+                    Category category = db.Categories.Where(x => x.id == id).FirstOrDefault();
+
+                    if (category != null)
+                    {
+                        result.Entity = category;
+                        db.Categories.Remove(category);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.Message = "Category not found";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result.Success = false;
+                result.Message = "Category memiliki Product, tidak dapat dihapus";
             }
             return result;
         }
@@ -38,14 +68,14 @@ namespace XKitchen.Repository
                     //Create
                     if (entity.id == 0)
                     {
-                        Categories category = new Categories();
+                        Category category = new Category();
                         category.initial = entity.initial;
                         category.Name = entity.Name;
                         category.Active = entity.Active;
 
                         category.CreateBy = "Bloblo";
                         category.CreateDate = DateTime.Now;
-                        db.Mst_Category.Add(category);
+                        db.Categories.Add(category);
                         db.SaveChanges();
 
                         result.Entity = category;
@@ -53,7 +83,7 @@ namespace XKitchen.Repository
                     //Edit
                     else
                     {
-                        Categories category = db.Mst_Category.Where(o => o.id == entity.id).FirstOrDefault();
+                        Category category = db.Categories.Where(o => o.id == entity.id).FirstOrDefault();
                         if (category !=null)
                         {
                             category.initial = entity.initial;
@@ -65,7 +95,7 @@ namespace XKitchen.Repository
 
                             db.SaveChanges();
 
-                            result.Entity = category;
+                            result.Entity = entity;
                         }
                         else
                         {
@@ -89,7 +119,7 @@ namespace XKitchen.Repository
             CategoryViewModel result = new CategoryViewModel();
             using (var db = new KitchenContext())
             {
-                result = (from c in db.Mst_Category
+                result = (from c in db.Categories
                           where c.id == id
                           select new CategoryViewModel
                           {

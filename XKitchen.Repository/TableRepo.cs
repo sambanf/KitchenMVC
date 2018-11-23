@@ -15,7 +15,7 @@ namespace XKitchen.Repository
             List<TableViewModel> result = new List<TableViewModel>();
             using (var db = new KitchenContext())
             {
-                result = (from d in db.Mst_Table
+                result = (from d in db.Tables
                           select new TableViewModel
                           {
                               id = d.id,
@@ -39,7 +39,7 @@ namespace XKitchen.Repository
                     //Create
                     if (entity.id == 0)
                     {
-                        Tables table = new Tables();
+                        Table table = new Table();
                         table.initial = entity.initial;
                         table.Seat = entity.Seat;
                         table.Desc = entity.Desc;
@@ -47,7 +47,7 @@ namespace XKitchen.Repository
 
                         table.CreateBy = "Bloblo";
                         table.CreateDate = DateTime.Now;
-                        db.Mst_Table.Add(table);
+                        db.Tables.Add(table);
                         db.SaveChanges();
 
                         result.Entity = table;
@@ -55,7 +55,7 @@ namespace XKitchen.Repository
                     //Edit
                     else
                     {
-                        Tables table = db.Mst_Table.Where(o => o.id == entity.id).FirstOrDefault();
+                        Table table = db.Tables.Where(o => o.id == entity.id).FirstOrDefault();
                         if (table != null)
                         {
                             table.initial = entity.initial;
@@ -66,9 +66,9 @@ namespace XKitchen.Repository
                             table.ModifyBy = "Booboo";
                             table.ModifyDate = DateTime.Now;
 
-                            db.SaveChanges();
 
-                            result.Entity = table;
+                            db.SaveChanges();
+                            result.Entity = entity;
                         }
                         else
                         {
@@ -92,7 +92,7 @@ namespace XKitchen.Repository
             TableViewModel result = new TableViewModel();
             using (var db = new KitchenContext())
             {
-                result = (from d in db.Mst_Table
+                result = (from d in db.Tables
                           where d.id == id
                           select new TableViewModel
                           {

@@ -49,7 +49,7 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+<script type="text/javascript">
     $("#edit-form").submit(function () {
         //alert($(this).serialize());
         $.ajax({
@@ -67,18 +67,4 @@
         });
         return false;
     });
-
-    function GetList(){
-            $.ajax({
-                url: '@Url.Action("List","Category")',
-                type: 'get',
-                success: function (result) {
-                    $("#table-list").html(result);
-                },
-                error: function (err) {
-                    $("#table-list").html(err);
-                }
-            });
-        }
-
-    </script>
+</script>

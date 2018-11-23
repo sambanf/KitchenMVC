@@ -18,7 +18,7 @@ namespace XKitchen.Tests
             using (var db = new KitchenContext())
             {
                 Trace.WriteLine("--- Starting Category Testing ");
-                Categories cat = new Categories()
+                Category cat = new Category()
                 {
                     initial = "MC",
                     Name = "Main Course",
@@ -26,8 +26,8 @@ namespace XKitchen.Tests
                     CreateBy = "Bloobloo",
                     CreateDate = DateTime.Now
                 };
-                db.Mst_Category.Add(cat);
-                cat = new Categories()
+                db.Categories.Add(cat);
+                cat = new Category()
                 {
                     initial = "Dr",
                     Name = "Drink",
@@ -35,9 +35,9 @@ namespace XKitchen.Tests
                     CreateBy = "Bloobloo",
                     CreateDate = DateTime.Now
                 };
-                db.Mst_Category.Add(cat);
+                db.Categories.Add(cat);
                 db.SaveChanges();
-                foreach (var category in db.Mst_Category.ToList())
+                foreach (var category in db.Categories.ToList())
                 {
                     Trace.WriteLine(category.Name);
                 }
@@ -51,7 +51,7 @@ namespace XKitchen.Tests
             using (var db = new KitchenContext())
             {
                 Trace.WriteLine("--- Starting Table Testing ");
-                foreach (var tables in db.Mst_Table.ToList())
+                foreach (var tables in db.Tables.ToList())
                 {
                     Trace.WriteLine(tables.initial);
                 }
@@ -68,6 +68,19 @@ namespace XKitchen.Tests
             {
                 Trace.WriteLine(category.Name);
             }
+            Trace.WriteLine("--- End Get All Category Testing ---");
+        }
+
+        [TestMethod]
+        public void TestGetRef()
+        {
+
+            Trace.WriteLine("--- Start Get All Category Testing ---");
+            string newref = ReservationRepo.GerReff();
+            Trace.WriteLine(newref);
+
+            string newref2 = ReservationRepo.GerReff();
+            Trace.WriteLine(newref2);
             Trace.WriteLine("--- End Get All Category Testing ---");
         }
     }
