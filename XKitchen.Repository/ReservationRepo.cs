@@ -23,13 +23,14 @@ namespace XKitchen.Repository
                         Reservation reserv = new Reservation();
                         reserv.guest = entity.guest;
                         reserv.reference = entity.reference;
-                        reserv.Paid = entity.Paid;
+                        reserv.tableid = entity.tableid;
+                        reserv.Paid = false;
                         reserv.CreateBy = "Floofloo";
                         reserv.CreateDate = DateTime.Now;
 
                         db.Reservations.Add(reserv);
                         db.SaveChanges();
-                        result.Entity = reserv;
+                        result.Entity = entity;
                     }
                     else
                     {
@@ -55,7 +56,7 @@ namespace XKitchen.Repository
         public static string GerReff()
         {
             string yearmonth = DateTime.Now.ToString("yy") + DateTime.Now.Month.ToString("D2");
-            string newref = String.Format("RSV-{0}", yearmonth);
+            string newref = String.Format("RSV-{0}-", yearmonth);
             using (var db = new KitchenContext())
             {
                 var result = (from r in db.Reservations
@@ -65,7 +66,7 @@ namespace XKitchen.Repository
                 if (result != null)
                 {
                     string[] lastreff = result.reference.Split('-');
-                    newref += (int.Parse(lastreff[2] + 1)).ToString();
+                    newref += ((int.Parse(lastreff[2])) + 1).ToString("D4");
 
                 }
                 else

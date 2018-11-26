@@ -14,7 +14,6 @@ namespace XKitchen.DataModel
             Orders = new HashSet<Order>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int tableid { get; set; }

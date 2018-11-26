@@ -9,6 +9,10 @@ namespace XKitchen.ViewModel
 {
     public class ReservationVIewModel
     {
+        public ReservationVIewModel()
+        {
+            Active = true;
+        }
         public int id { get; set; }
 
         public int tableid { get; set; }

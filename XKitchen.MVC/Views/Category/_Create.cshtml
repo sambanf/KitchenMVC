@@ -64,18 +64,5 @@
         });
         return false;
     });
-
-    function GetList(){
-            $.ajax({
-                url: '@Url.Action("List","Category")',
-                type: 'get',
-                success: function (result) {
-                    $("#table-list").html(result);
-                },
-                error: function (err) {
-                    $("#table-list").html(err);
-                }
-            });
-        }
-
+    
 </script>
