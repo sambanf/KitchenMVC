@@ -1,0 +1,95 @@
+﻿@model XKitchen.ViewModel.StudentViewModel
+
+<h6>Are you sure you want to delete this?</h6>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <hr />
+        @using (Html.BeginForm("Delete", "Student", FormMethod.Post, new { id = "delete-form", name = "delete-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-actions no-color">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="btn-group btn-group-sm">
+                        <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+        <hr />
+    </dl>
+
+
+    
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $("#delete-form").submit(function () {
+        //alert($(this).serialize());
+        $.ajax({
+            url: '@Url.Action("Delete", "Student")',
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Delete successful! ");
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error! " + result.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>

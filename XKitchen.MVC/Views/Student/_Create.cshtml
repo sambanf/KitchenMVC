@@ -1,0 +1,97 @@
+﻿@model XKitchen.ViewModel.StudentViewModel
+
+@using (Html.BeginForm("Create", "Student", FormMethod.Post, new { id = "create-form", name = "create-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="radio radio-inline">
+                    @Html.RadioButtonFor(model => model.gender, "M")
+                    Male
+                </div>
+                <div class="radio radio-inline">
+                    @Html.RadioButtonFor(model => model.gender, "F")
+                    Female
+                </div>
+                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.pob, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.pob, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Active)
+                    @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class=" btn-group btn-group-sm">
+                    <input type="button" value="Cancel" class="btn btn-default btn-sm" data-dismiss="modal" />
+                    <input type="submit" value="Create" class="btn btn-success btn-sm" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $("#create-form").submit(function () {
+        //alert($(this).serialize());
+        $.ajax({
+            url: '@Url.Action("Create","Student")', type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save Successful" + result.entity.firstname);
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error!." + result.message)
+                }
+            }
+        });
+        return false;
+    });
+    $('.checkbox').prop('indeterminate', true)
+</script>

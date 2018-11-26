@@ -1,0 +1,85 @@
+﻿@model IEnumerable<XKitchen.ViewModel.StudentViewModel>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fullname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gendername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dob.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(haha => item.fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(hahaItem => item.gendername)
+            </td>
+            <td>
+                @Html.DisplayFor(hahaItem => item.dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-warning btn-sm btn-edit" data-id="@item.id" title="Edit">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="@item.id" title="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Student")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Edit Category");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+
+            }
+        });
+
+    })
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Student")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Data");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    })
+</script>
