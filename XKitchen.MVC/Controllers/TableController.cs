@@ -51,6 +51,21 @@ namespace XKitchen.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Delete(int id)
+        {
+            return PartialView("_Delete", TableRepo.GetTable(id));
+        }
 
+        [HttpPost]
+        public ActionResult Delete(TableViewModel model)
+        {
+            ResponResultViewModel result = TableRepo.Delete(model.id);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.Message,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

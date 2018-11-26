@@ -17,6 +17,7 @@ namespace XKitchen.DataModel
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Table> Tables { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -100,6 +101,31 @@ namespace XKitchen.DataModel
                 .WithRequired(e => e.Reservation)
                 .HasForeignKey(e => e.reservid)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.firstname)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.lastname)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.gender)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.pob)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.CreateBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(e => e.ModifyBy)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Table>()
                 .Property(e => e.initial)

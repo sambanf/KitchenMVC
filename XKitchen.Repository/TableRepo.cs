@@ -110,6 +110,35 @@ namespace XKitchen.Repository
             return result;
         }
 
+        public static ResponResultViewModel Delete(int id)
+        {
+            ResponResultViewModel result = new ResponResultViewModel();
+            try
+            {
+                using (var db = new KitchenContext())
+                {
+                    Table tab = db.Tables.Where(x => x.id == id).FirstOrDefault();
+
+                    if (tab != null)
+                    {
+                        result.Entity = tab;
+                        db.Tables.Remove(tab);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.Message = "Category not found";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result.Success = false;
+                result.Message = "Category memiliki Product, tidak dapat dihapus";
+            }
+            return result;
+        }
 
     }
 }

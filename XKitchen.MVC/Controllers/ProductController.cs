@@ -40,6 +40,7 @@ namespace XKitchen.MVC.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewBag.Categorylist = new SelectList(CategoryRepo.All(), "id", "name");
             return PartialView("_Edit", ProductRepo.GetProduct(id));
         }
 
@@ -59,16 +60,16 @@ namespace XKitchen.MVC.Controllers
         {
             return PartialView("_Delete", ProductRepo.GetProduct(id));
         }
-        //[HttpPost]
-        //public ActionResult Delete(ProductViewModel model)
-        //{
-        //    ResponResultViewModel result = ProductRepo.Delete(model.id);
-        //    return Json(new
-        //    {
-        //        success = result.Success,
-        //        message = result.Message,
-        //        entity = result.Entity
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public ActionResult Delete(ProductViewModel model)
+        {
+            ResponResultViewModel result = ProductRepo.Delete(model.id);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.Message,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

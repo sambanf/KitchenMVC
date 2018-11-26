@@ -73,9 +73,9 @@ namespace XKitchen.Repository
                             product.price = entity.price;
                             product.Active = entity.Active;
 
-                            product.CreateBy = "Bloblo";
-                            product.CreateDate = DateTime.Now;
-                            db.Products.Add(product);
+                            product.ModifyBy = "Bloblo";
+                            product.ModifyDate = DateTime.Now;
+
                             db.SaveChanges();
 
                             result.Entity = entity;
@@ -83,7 +83,7 @@ namespace XKitchen.Repository
                         else
                         {
                             result.Success = false;
-                            result.Message = "table not Found!";
+                            result.Message = "Prod not Found!";
                         }
                     }
                 }
@@ -112,12 +112,43 @@ namespace XKitchen.Repository
                               name = d.name,
                               categoryid = d.categoryid,
                               CategoryName = c.Name,
+                              price = d.price,
+                              description = d.description,
                               Active = d.Active
                           }).FirstOrDefault();
                 if (result == null)
                 {
                     result = new ProductViewModel();
                 }
+            }
+            return result;
+        }
+        public static ResponResultViewModel Delete(int id)
+        {
+            ResponResultViewModel result = new ResponResultViewModel();
+            try
+            {
+                using (var db = new KitchenContext())
+                {
+                    Product prod = db.Products.Where(x => x.id == id).FirstOrDefault();
+
+                    if (prod != null)
+                    {
+                        result.Entity = prod;
+                        db.Products.Remove(prod);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.Message = "Products not found";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.Success = false;
+                result.Message = "Category memiliki Product, tidak dapat dihapus";
             }
             return result;
         }

@@ -20,42 +20,75 @@
         <th>
             @Html.DisplayNameFor(model => model.Active)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.initial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        
-        <td>
-            <div class="btn-group btn-group-sm">
-                <button type="button" class="btn btn-warning btn-sm btn-edit" data-id="@item.id" title="Edit">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="@item.id" title="Delete">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </button>
-            </div>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.initial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-warning btn-sm btn-edit" data-id="@item.id" title="Edit">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="@item.id" title="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<script type="text/javascript">
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Product")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Edit Prod");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+
+            }
+        });
+
+    })
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Product")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Data");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    })
+</script>

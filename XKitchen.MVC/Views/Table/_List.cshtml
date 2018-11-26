@@ -62,5 +62,19 @@
         });
 
     })
-
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Table")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Data");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    })
 </script>

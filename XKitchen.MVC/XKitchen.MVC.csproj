@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1115,6 +1116,14 @@
     <Content Include="Views\Reservation\Index.cshtml" />
     <Content Include="Views\Reservation\_GetByTable.cshtml" />
     <Content Include="Views\Reservation\_ProductList.cshtml" />
+    <Content Include="Views\Product\_Delete.cshtml" />
+    <Content Include="Views\Product\_Edit.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\_List.cshtml" />
+    <Content Include="Views\Student\_Create.cshtml" />
+    <Content Include="Views\Student\_Edit.cshtml" />
+    <Content Include="Views\Student\_Delete.cshtml" />
+    <Content Include="Views\Table\_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

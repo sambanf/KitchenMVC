@@ -42,11 +42,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class=" btn-group btn-group-sm">
+                    <input type="button" value="Cancel" class="btn btn-default btn-sm" data-dismiss="modal" />
+                    <input type="submit" value="Create" class="btn btn-success btn-sm" />
+                </div>
             </div>
         </div>
     </div>
 }
+
 
 
 
@@ -60,7 +64,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successful" + result.entity.inital);
+                    alert("Save Successful " + result.entity.seat);
                     $(".modal").modal("hide");
                     GetList();
                 } else {
@@ -70,18 +74,4 @@
         });
         return false;
     });
-
-    function GetList(){
-            $.ajax({
-                url: '@Url.Action("List","Table")',
-                type: 'get',
-                success: function (result) {
-                    $("#table-list").html(result);
-                },
-                error: function (err) {
-                    $("#table-list").html(err);
-                }
-            });
-        }
-
 </script>
