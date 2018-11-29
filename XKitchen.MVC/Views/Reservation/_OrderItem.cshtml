@@ -1,0 +1,31 @@
+﻿@model XKitchen.ViewModel.OrderViewModel
+
+
+
+<tr>
+    <td>
+        @Html.HiddenFor(model => model.productid)
+        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control",@readonly = "readonly"} })
+    </td>
+    <td>
+
+        @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @onchange = "changeqty(this)", @onkeyup = "changeqty(this)" } })
+        @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger btn-remove" title="Rem" onclick="RemoveItem(this)">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="RemoveItem(this)"></span>
+        </button>
+    </td>
+</tr>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")

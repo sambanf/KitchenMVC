@@ -8,7 +8,6 @@ namespace XKitchen.DataModel
 
     public partial class Order
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int reservid { get; set; }

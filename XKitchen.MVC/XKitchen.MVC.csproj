@@ -1125,6 +1125,8 @@
     <Content Include="Views\Student\_Delete.cshtml" />
     <Content Include="Views\Table\_Delete.cshtml" />
     <Content Include="Views\Reservation\_Create.cshtml" />
+    <Content Include="Views\Reservation\_Orderlist.cshtml" />
+    <Content Include="Views\Reservation\_OrderItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

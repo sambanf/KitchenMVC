@@ -48,12 +48,26 @@ namespace XKitchen.MVC.Controllers
         public ActionResult Create(ReservationVIewModel model)
         {
             ResponResultViewModel respon = ReservationRepo.Update(model);
+
             return Json(new
             {
                 success = respon.Success,
                 message = respon.Message,
                 entity = respon.Entity
             }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Orderlist(int id)
+        {
+            //id = Reservid
+            return PartialView("_Orderlist",ReservationRepo.GetByReserv(id));
+        }
+
+        public ActionResult OrderItem(int id)
+        {
+            //id = productid
+            return PartialView("_Orderitem", ReservationRepo.GetByProduct(id));
         }
 
     }

@@ -83,18 +83,65 @@ namespace XKitchen.Repository
             using (var db = new KitchenContext())
             {
                 result = (from r in db.Reservations
+                          join t in db.Tables on
+                          r.tableid equals t.id
                           where r.tableid == tableid
                           select new ReservationVIewModel
                           {
                               id = r.id,
                               tableid = r.tableid,
+                              tableinit = t.initial,
+                              tabledesc = t.Desc,
                               reference = r.reference,
+                              Paid = r.Paid,
                               guest = r.guest,
                               Active = r.Active
                           }).FirstOrDefault();
 
                 return result == null ? result = new ReservationVIewModel() : result;
             }
+        }
+        public static List<OrderViewModel> GetByReserv(int id)
+        {
+            //id=>reseid
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            using (var db = new KitchenContext())
+            {
+                result = (from r in db.Reservations
+                          join o in db.Orders on
+                          r.id equals o.reservid
+                          join p in db.Products on
+                          o.productid equals p.id
+                          where r.id == id
+                          select new OrderViewModel
+                          {
+                              reservid = r.id,
+                              productid = o.productid,
+                              price = o.price,
+                              quantity = o.quantity,
+                              status = o.status,
+                              Active = o.Active
+                          }).ToList();
+            }
+            return result.Count == 0 ? new List<OrderViewModel>(): result;
+        }
+
+        public static OrderViewModel GetByProduct(int id)
+        {
+            //id = prodid
+            OrderViewModel result = new OrderViewModel();
+            using (var db = new KitchenContext())
+            {
+                result = (from p in db.Products
+                          where p.id == id
+                          select new OrderViewModel
+                          {
+                              productid = p.id,
+                              productname = p.name,
+                              price = p.price
+                          }).FirstOrDefault();
+            }
+            return result == null? new OrderViewModel() : result;
         }
     }
 }

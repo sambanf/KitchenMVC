@@ -1,0 +1,43 @@
+﻿@model IEnumerable<XKitchen.ViewModel.OrderViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody id="item-list">
+
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_Orderitem", item)
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Total</td>
+            <td>
+                <input type="number" id="total-qty" class="form-control text-box single-ling" value="0" readonly />
+            </td>
+            <td>
+                <input type="number" id="total-amt" class="form-control text-box single-ling" value="0" readonly />
+            </td>
+            <td colspan="2">Total</td>
+        </tr>
+    </tfoot>
+</table>

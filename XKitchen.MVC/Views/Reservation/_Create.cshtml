@@ -37,6 +37,10 @@
                 if (result.success) {
                     alert("Save Successful" + result.entity.reference);
                     $(".modal").modal("hide");
+                    GetTableById(result.entity.tableid)
+
+                    $("#btn-new-order").removeAttr("disabled");
+                    $("#btn-payment").removeAttr("disabled");
                     GetList();
                 } else {
                     alert("Error!." + result.message)

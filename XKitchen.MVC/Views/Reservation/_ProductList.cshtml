@@ -1,35 +1,56 @@
 ﻿@model IEnumerable<XKitchen.ViewModel.ProductViewModel>
 
-<table class="table">
-    <tr>
-        <th>Select</th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.initial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.price)
-        </th>
-    </tr>
+@using (Html.BeginForm("Create", "Reservation", FormMethod.Post, new { id = "create-form", name = "create-form" }))
+{
+    <table class="table">
+        <tr>
+            <th>Select</th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <button type="button" class="btn btn-warning btn-sm" data-id="@item.id" data-dismiss="modal">Select</button>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.initial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-    </tr>
+            <th>
+                @Html.DisplayNameFor(model => model.initial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <button type="button"  class="btn btn-warning btn-sm btn-select" data-id="@item.id" data-dismiss="modal">Select</button>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.initial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+            </tr>
+        }
+
+    </table>
+
 }
 
-</table>
+    <script type="text/javascript">
+        $(".btn-select").click(function () {
+            $.ajax({
+                url: '@Url.Action("Orderitem","Reservation")',
+                type: 'get',
+                data: {id:$(this).attr("data-id")},
+                success: function (result) {
+                    $('#item-list').append(result)
+                    Recalculate();
+                }
+            });
+        });
+
+
+    </script>

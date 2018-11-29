@@ -13,18 +13,23 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="row">
+        <div class="form-horizontal">
             <div class="col-lg-12" id="rsv-info">
-                <h3>Loading...</h3>
+                <h3>Res Info here</h3>
             </div>
             <hr />
-            <div class="row">
-                <div class="col-lg-3 col-lg-offset-2">
-                    <button id="btn-new-order" type="button" class="btn btn-success btn-lg">New Order</button>
+            <div class="form-horizontal">
+                <div class="col-lg-12">
+                    <button id="btn-new-order" type="button" class="btn btn-success btn-md" disabled>New Order</button>
+                    <button id="btn-payment" type="button" class="btn btn-primary btn-md" disabled>Payment</button>
                 </div>
-                <div class="col-lg-3 col-lg-offset-2">
-                    <button id="btn-payment" type="button" class="btn btn-primary btn-lg">Payment</button>
-                </div>
+            </div>
+            <span>
+
+            </span>
+            <hr />
+            <div class="col-lg-12" id="order-info">
+                <h3>Orderlist here</h3>
             </div>
         </div>
     </div>
@@ -50,7 +55,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             GetTableById(0);
+            GetOrderlist(0);
         });
+
 
         function GetTableById(id) {
             $.ajax({
@@ -59,11 +66,23 @@
                 data: {id:id},
                 success: function (result) {
                     $('#rsv-info').html(result)
+                    $("#button-new-order").removeAttr("disabled");
+                    $("#button-payment").removeAttr("disabled");
+                }
+            });
+        }
+        function GetOrderlist(id) {
+            $.ajax({
+                url: '@Url.Action("Orderlist","Reservation")',
+                type: 'get',
+                data: {id:id},
+                success: function (result) {
+                    $('#order-info').html(result)
                 }
             });
         }
 
-    
+
         $("#btn-new-order").click(function () {
             $.ajax({
                 url: '@Url.Action("Productlist","Reservation")',
@@ -88,9 +107,18 @@
                 data: { id:tblId},
                 success: function (result) {
                     if (result.success) {
-                        alert('Reserved');
+                        $("#rsv-info #tblinitdesc").val(result.entity.tableinit + " - " + result.entity.tabledesc);
+                        $("#rsv-info #reference").val(result.entity.reference);
+                        $("#rsv-info #guest").val(result.entity.guest);
+                        $("#btn-new-order").removeAttr("disabled");
+                        $("#btn-payment").removeAttr("disabled");
+                        GetOrderlist(result.entity.id);
                     }
                     else {
+                        $("#btn-new-order").attr("disabled", "disabled");
+                        $("#btn-payment").attr("disabled", "disabled");
+                        GetOrderlist(0);
+                        GetTableById(0);
                         createRsv(tblId);
                     }
                 },
@@ -109,10 +137,37 @@
                     $(".modal-title").html("Create new Reservation")
                     $(".modal-body").html(result);
                     $(".modal").modal("show")
+
                 }
             });
         }
 
+        function RemoveItem(obj) {
+                var tr = $(obj).closest("tr");
+                if (confirm("r u sure to remove this?")) {
+                    tr.remove();
+                    Recalculate();
+                }
+        }
+        function changeqty(obj) {
+            
+            var tr = $(obj).closest("tr");
+            var prc = tr.find("input[Name=price]").val();
+            var qty = $(obj).val();
+            tr.find("input[Name=Amount]").val(prc * qty);
+            Recalculate();
+        }
+        function Recalculate() {
+            
+            var totqty = 0;
+            var totamt = 0;
+            $("#item-list").find("tr").each(function (item) {
+                totqty += parseInt($(this).find('input[Name=quantity]').val());
+                totamt += parseInt($(this).find('input[Name=Amount]').val());
+            });
+            $("#total-qty").val(totqty);
+            $("#total-amt").val(totamt);
+        }
     </script>
 }
 

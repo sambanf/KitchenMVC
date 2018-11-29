@@ -28,6 +28,7 @@ namespace XKitchen.Repository
             }
             return result;
         }
+
         public static ResponResultViewModel Update(TableViewModel entity)
         {
             //Untuk create dan edit

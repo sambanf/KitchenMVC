@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryRepo.cs" />
+    <Compile Include="OrderRepo.cs" />
     <Compile Include="ProductRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservationRepo.cs" />
