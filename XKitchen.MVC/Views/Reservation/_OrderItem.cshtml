@@ -1,15 +1,18 @@
 ﻿@model XKitchen.ViewModel.OrderViewModel
-
-
-
+@{ 
+    string qtyread = Model.status != 0 ? "readonly" : "";
+    
+}
 <tr>
+    
     <td>
+        <input type="hidden" id="orderid" name="orderid" value="@Model.id"/>
         @Html.HiddenFor(model => model.productid)
-        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control",@readonly = "readonly"} })
+        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
     </td>
     <td>
 
-        @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+        @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
     </td>
     <td>
         @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @onchange = "changeqty(this)", @onkeyup = "changeqty(this)" } })
@@ -20,10 +23,30 @@
     </td>
     <td>
         @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @{
+            switch (Model.status)
+            {
+                case 0:
+                    <span>Reserv</span>
+                    break;
+                case 1:
+                    <span>Proc</span>
+                    break;
+                case 2:
+                    <span>Deliv</span>
+                    break;
+                default:
+                    <span>Unknown</span>
+                    break;
+            }
+        }
     </td>
     <td>
         <button type="button" class="btn btn-danger btn-remove" title="Rem" onclick="RemoveItem(this)">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="RemoveItem(this)"></span>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-primary btn-submit" title="Process" onclick="Process(this)">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
         </button>
     </td>
 </tr>

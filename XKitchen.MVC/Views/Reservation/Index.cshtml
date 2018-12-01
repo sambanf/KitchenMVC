@@ -110,6 +110,7 @@
                         $("#rsv-info #tblinitdesc").val(result.entity.tableinit + " - " + result.entity.tabledesc);
                         $("#rsv-info #reference").val(result.entity.reference);
                         $("#rsv-info #guest").val(result.entity.guest);
+                        $("#rsv-info #id").val(result.entity.id);
                         $("#btn-new-order").removeAttr("disabled");
                         $("#btn-payment").removeAttr("disabled");
                         GetOrderlist(result.entity.id);
@@ -150,7 +151,7 @@
                 }
         }
         function changeqty(obj) {
-            
+
             var tr = $(obj).closest("tr");
             var prc = tr.find("input[Name=price]").val();
             var qty = $(obj).val();
@@ -158,7 +159,7 @@
             Recalculate();
         }
         function Recalculate() {
-            
+
             var totqty = 0;
             var totamt = 0;
             $("#item-list").find("tr").each(function (item) {
@@ -167,6 +168,34 @@
             });
             $("#total-qty").val(totqty);
             $("#total-amt").val(totamt);
+        }
+
+        function Process(obj) {
+            var rsvid = $("#rsv-info #id").val();
+            var tr = $(obj).closest("tr");
+            var prdid = tr.find("input[name='productid']").val();
+            var ordid = tr.find("input[name='orderid']").val();
+            var qty = tr.find("input[name='quantity']").val();
+            var prc = tr.find("input[name='price']").val();
+            var st = tr.find("input[name='status']").val();
+            var data = {id:ordid, reservid: rsvid, productid: prdid, quantity: qty, price: prc, status :st };
+            //alert($("#rsv-info #id").val())
+            alert(JSON.stringify(data));
+                     $.ajax({
+                url: '@Url.Action("Process","Reservation")',
+                            type: 'post',
+                            data: data,
+                success: function (result) {
+                    if (result.success) {
+                        tr.find("input[name='quantity']").attr("disabled", "disabled");
+                        location.reload();
+
+                    } else {
+                        alert('Error: ' +result.message)
+                    }
+
+                }
+            });
         }
     </script>
 }

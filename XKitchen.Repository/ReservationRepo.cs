@@ -27,7 +27,7 @@ namespace XKitchen.Repository
                         reserv.Paid = false;
                         reserv.CreateBy = "Floofloo";
                         reserv.CreateDate = DateTime.Now;
-
+                        reserv.Active = true;
                         db.Reservations.Add(reserv);
                         db.SaveChanges();
                         result.Entity = entity;
@@ -53,6 +53,7 @@ namespace XKitchen.Repository
             }
             return result;
         }
+
         public static string GerReff()
         {
             string yearmonth = DateTime.Now.ToString("yy") + DateTime.Now.Month.ToString("D2");
@@ -115,15 +116,17 @@ namespace XKitchen.Repository
                           where r.id == id
                           select new OrderViewModel
                           {
+                              id = o.id,
                               reservid = r.id,
                               productid = o.productid,
+                              productname = p.name,
                               price = o.price,
                               quantity = o.quantity,
                               status = o.status,
                               Active = o.Active
                           }).ToList();
             }
-            return result.Count == 0 ? new List<OrderViewModel>(): result;
+            return result.Count == 0 ? new List<OrderViewModel>() : result;
         }
 
         public static OrderViewModel GetByProduct(int id)
@@ -141,7 +144,59 @@ namespace XKitchen.Repository
                               price = p.price
                           }).FirstOrDefault();
             }
-            return result == null? new OrderViewModel() : result;
+            return result == null ? new OrderViewModel() : result;
+        }
+
+        public static ResponResultViewModel WorkFlow(OrderViewModel entity)
+        {
+            ResponResultViewModel res = new ResponResultViewModel();
+            try
+            {
+                using (var db = new KitchenContext())
+                {
+                    if (entity.id == 0)
+                    {
+                        Order ord = new Order();
+                        ord.reservid = entity.reservid;
+                        ord.productid = entity.productid;
+                        ord.quantity = entity.quantity;
+                        ord.price = entity.price;
+                        ord.status = entity.status +1;
+
+                        ord.Active = true;
+                        ord.CreateBy = "OrderBlu";
+                        ord.CreateDate = DateTime.Now;
+
+                        db.Orders.Add(ord);
+                        db.SaveChanges();
+
+                        res.Entity = ord;
+                    }
+                    else
+                    {
+                        Order order = db.Orders.Where(o => o.id == entity.id).FirstOrDefault();
+                        if (order == null)
+                        {
+                            res.Success = false;
+                            res.Message = "Ord Not FOund";
+                        }
+                        else
+                        {
+                            order.status = order.status + 1;
+                            db.SaveChanges();
+                            res.Entity = entity;
+                        }
+
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                res.Success = false;
+                res.Message = e.Message;
+            }
+            return res;
         }
     }
 }

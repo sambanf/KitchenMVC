@@ -70,5 +70,16 @@ namespace XKitchen.MVC.Controllers
             return PartialView("_Orderitem", ReservationRepo.GetByProduct(id));
         }
 
+        [HttpPost]
+        public ActionResult Process(OrderViewModel model)
+        {
+            ResponResultViewModel respon = ReservationRepo.WorkFlow(model);
+            return Json(new
+            {
+                success = respon.Success,
+                message = respon.Message,
+                entity = respon.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
